@@ -17,5 +17,11 @@
         - Están diseñadas específicamente para modelos de datos específicos y tienen esquema flexibles para crear aplicaciones modernas.
         - Este tipo de bases de datos son bastante comunes cuando hay una gran cantidad de transacciones de: **lectura/escritura** y cuando los datos no son uniformes o relacionados.
     - Express
+      - **_npm i express_**
     - React
     - Node.js
+
+
+### Creación del proyecto
+
+- **_npm init --y_**
