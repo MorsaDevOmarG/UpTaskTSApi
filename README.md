@@ -24,10 +24,20 @@
 - Nodemon
   - **_npm i -D nodemon_**
   - **_npm i -D ts-node_**
+  - Una vez instalado, configuramos en: **package.json**
+    - ```
+      "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "dev": "nodemon --exec ts-node src/index.ts"
+      },  
+    ```
+  - Ejecutamos el comando:
+    - **_npm run dev_**
+  - Con ello todos los cambios que realicemos los estará mostrando en _consola_ sin necesidad de estar reiniciando o apuntando a llamar un archivo en específico.
 - Typescript
   - **_npm i -D typescript_**
 
 
 ### Creación del proyecto
 
-- **_npm init --y_**
+  - **_npm init --y_**
