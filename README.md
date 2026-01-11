@@ -18,8 +18,14 @@
         - Este tipo de bases de datos son bastante comunes cuando hay una gran cantidad de transacciones de: **lectura/escritura** y cuando los datos no son uniformes o relacionados.
     - Express
       - **_npm i express_**
+      - **_npm i -D @types/express_**
     - React
     - Node.js
+- Nodemon
+  - **_npm i -D nodemon_**
+  - **_npm i -D ts-node_**
+- Typescript
+  - **_npm i -D typescript_**
 
 
 ### Creación del proyecto
