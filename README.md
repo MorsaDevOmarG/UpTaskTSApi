@@ -48,6 +48,8 @@
   - Al igual que _Sequelize_ se utilizan Modelos para diseñar los tipos de datos que tendrá nuestra información.
   - Tiene una gran cantidad de métodos para realizar las diferentes acciones del _CRUD_.
   - Se utiliza junto otras dependencias para manejar autenticación de usuarios, _has de password_ y más.
+  - Consultar tipos de datos:
+    - _https://mongoosejs.com/docs/schematypes.html_
 - ENV
   - **_npm i dotenv_**
   - Sirve para crear variables de entorno.
