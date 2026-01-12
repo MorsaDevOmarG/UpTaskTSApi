@@ -36,6 +36,9 @@
   - Con ello todos los cambios que realicemos los estará mostrando en _consola_ sin necesidad de estar reiniciando o apuntando a llamar un archivo en específico.
 - Typescript
   - **_npm i -D typescript_**
+- Colors
+  - **_ npm i colors_**
+  - Sirve para poder personalizar los colores de las alertas o _logs_ en consola.
 
 
 ### Creación del proyecto
