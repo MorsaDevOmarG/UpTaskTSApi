@@ -37,6 +37,7 @@ export const TaskSchema: Schema = new Schema(
     status: {
       type: String,
       enum: Object.values(taskStatus),
+      default: taskStatus.PENDING
     },
   },
   {

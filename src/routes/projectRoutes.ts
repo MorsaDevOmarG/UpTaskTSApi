@@ -2,6 +2,7 @@ import { Router } from "express";
 import { ProjectController } from "../controllers/ProjectController";
 import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
+import { TaskController } from "../controllers/TaskController";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -54,6 +55,13 @@ router.delete(
     .withMessage("ID no válido"),
   handleInputErrors,
   ProjectController.deleteProject
+);
+
+// RUTAS para las TAREAS
+// http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
+router.post(
+  '/:projectId/tasks',
+  TaskController.createProject
 );
 
 export default router;
