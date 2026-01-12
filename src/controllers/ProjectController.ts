@@ -8,7 +8,7 @@ export class ProjectController {
 
     try {
       // Otra forma: await Project.create(req.body);
-      
+
       await project.save();
 
       res.send('Proyecto creado correctamente');
@@ -18,6 +18,14 @@ export class ProjectController {
   };
 
   static getAllProjects = async (req: Request, res: Response) => {
+    try {
+      const projects = await Project.find({});
+
+      res.json(projects);
+    } catch (error) {
+      console.log(error);
+    }
+
     res.send('Todos los proyectos');
   };
 }
