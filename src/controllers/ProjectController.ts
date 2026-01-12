@@ -11,7 +11,7 @@ export class ProjectController {
 
       await project.save();
 
-      res.send('Proyecto creado correctamente');
+      res.send("Proyecto creado correctamente");
     } catch (error) {
       console.log(error);
     }
@@ -26,7 +26,7 @@ export class ProjectController {
       console.log(error);
     }
 
-    res.send('Todos los proyectos');
+    res.send("Todos los proyectos");
   };
 
   static getProjectById = async (req: Request, res: Response) => {
@@ -38,7 +38,7 @@ export class ProjectController {
       const project = await Project.findById(id);
 
       if (!project) {
-        const error = new Error('Proyecto NO encontrado...');
+        const error = new Error("Proyecto NO encontrado...");
 
         return res.status(404).json({ error: error.message });
       }
@@ -49,5 +49,25 @@ export class ProjectController {
     }
 
     // res.send('Todos los proyectos');
+  };
+
+  static updateProject = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    try {
+      const project = await Project.findByIdAndUpdate(id, req.body);
+
+      if (!project) {
+        const error = new Error("Proyecto NO encontrado...");
+
+        return res.status(404).json({ error: error.message });
+      }
+
+      await project.save();
+
+      res.send("Proyecto Actualizado");
+    } catch (error) {
+      console.log(error);
+    }
   };
 }
