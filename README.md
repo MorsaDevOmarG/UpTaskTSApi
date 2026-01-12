@@ -53,6 +53,30 @@
 - ENV
   - **_npm i dotenv_**
   - Sirve para crear variables de entorno.
+- Arquitectura MVC
+  - _Model View Controller_
+  - Patrón de Arquitectura de _Software_ que permite la separación de oblifaciones de cada pieza de tu código.
+  - Enfatiza la separación de la lógica de programación con la presentación.
+  - _MVC_ es la arquitectura más común hoy en día tanto para _web_ y se utiliza en cualquier lenguaje.
+  - ## VENTAJAS
+    - Un mejor orden y escalabilidad en tu proyecto.
+    - Al implementar una arquitectura probada como _MVC_ todos los programadores de un grupo saben exactamente donde encontrar el código ecargado de realizar alguna tarea.
+    - Aprende _MVC_ y cualquier _Framework MVC_ te será fácil de aprender.
+  - ### MODELO
+    - Encargado de todo lo relacionado a los datos, Base de datos y el _CRUD_, el **MODELO** esta muy relacionado a tu _ORM u ODM_.
+    - El **MODELO** se encargará de consultar una base de datos pero no se encarga de mostrar esos datos.
+  - ### VIEW
+    - Se encarga de todo lo que se ve en pantalla (HTML).
+    - El **MODELO** se encargará de consultar la base de datos pero es la vista la que se encarga de mostrar los resultados.
+    - En nuestro proyecto, _REACT_ es la vista.
+  - ### CONTROLLER
+    - Es el que comunica **MODELO y VISTA**, antes de que el modelo consulta la base de datos el **CONTROLADOR** es el encargado de llamarlo, una vez que el Modelo ya consultó la base de datos, es el **CONTROLADOR** quien le comunica a la vista los datos para que los muestre.
+  - ### ROUTER
+    - Es el encargado de registrar todas las _URL'S_ o _ENDPOINTS_ que soporta nuestra aplicación.
+    - Ejemplo:
+      - Si el usuario accede a una _URL_, el **ROUTER** ya tiene indicaciones de comunicarse con un _CONTROLADOR_ en específico, ese _Controlador_ ya sabe que _Modelo_ va a llamar y que vista va a ejecutar.
+- 
+
 
 ### Creación del proyecto
 
