@@ -4,5 +4,5 @@ import server from "./server";
 const port = process.env.PORT || 4000;
 
 server.listen(port, () => {
-  console.log( colors.blue(`REST API funcionando en el puerto: ${port}`));
+  console.log(colors.blue(`REST API funcionando en el puerto: ${port}`));
 });
