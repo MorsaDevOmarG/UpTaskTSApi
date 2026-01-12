@@ -28,4 +28,26 @@ export class ProjectController {
 
     res.send('Todos los proyectos');
   };
+
+  static getProjectById = async (req: Request, res: Response) => {
+    // console.log(req.params);
+    const { id } = req.params;
+    // console.log(id);
+
+    try {
+      const project = await Project.findById(id);
+
+      if (!project) {
+        const error = new Error('Proyecto NO encontrado...');
+
+        return res.status(404).json({ error: error.message });
+      }
+
+      res.json(project);
+    } catch (error) {
+      console.log(error);
+    }
+
+    // res.send('Todos los proyectos');
+  };
 }
