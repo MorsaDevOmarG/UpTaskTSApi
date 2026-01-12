@@ -13,33 +13,38 @@ export interface IProject extends Document {
   clientName: string;
   description: string;
   tasks: PopulatedDoc<ITask & Document>[];
-};
+}
 
 // Mongoose
-const ProjectSchema: Schema = new Schema({
-  projectName: {
-    type: String,
-    required: true,
-    trim: true,
+const ProjectSchema: Schema = new Schema(
+  {
+    projectName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    clientName: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    description: {
+      type: String,
+      required: true,
+      trim: true,
+    },
+    tasks: [
+      {
+        type: Types.ObjectId,
+        ref: "Task",
+      },
+    ],
   },
-  clientName: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  description: {
-    type: String,
-    required: true,
-    trim: true,
-  },
-  tasks: [
-    {
-      type: Types.ObjectId,
-      ref: 'Task'
-    }
-  ]
-});
+  {
+    timestamps: true
+  }
+);
 
-const Project = mongoose.model<IProject>('Project', ProjectSchema);
+const Project = mongoose.model<IProject>("Project", ProjectSchema);
 
 export default Project;

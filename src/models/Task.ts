@@ -1,27 +1,48 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 
+// El ESTADO solo aceptará alguno de los valores que definimos
+const taskStatus = {
+  PENDING: 'pending',
+  ON_HOLD: 'onHold',
+  IN_PROGRESS: 'inProgress',
+  UNDER_REVIEW: 'underReview',
+  COMPLETED: 'completed'
+};
+
+export type TaskStatus = typeof taskStatus[keyof typeof taskStatus];
+
 export interface ITask extends Document {
   name: string,
   description: string,
-  project: Types.ObjectId
+  project: Types.ObjectId,
+  status: TaskStatus
 };
 
-export const TaskSchema: Schema = new Schema({
-  name: {
-    type: String,
-    trim: true,
-    required: true
+export const TaskSchema: Schema = new Schema(
+  {
+    name: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    description: {
+      type: String,
+      trim: true,
+      required: true,
+    },
+    project: {
+      type: Types.ObjectId,
+      ref: "Project",
+    },
+    status: {
+      type: String,
+      enum: Object.values(taskStatus),
+    },
   },
-  description: {
-    type: String,
-    trim: true,
-    required: true
-  },
-  project: {
-    type: Types.ObjectId,
-    ref: 'Project'
+  {
+    timestamps: true,
   }
-});
+);
 
 const Task = mongoose.model<ITask>('Task', TaskSchema);
 
