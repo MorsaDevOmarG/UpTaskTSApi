@@ -75,8 +75,9 @@
     - Es el encargado de registrar todas las _URL'S_ o _ENDPOINTS_ que soporta nuestra aplicación.
     - Ejemplo:
       - Si el usuario accede a una _URL_, el **ROUTER** ya tiene indicaciones de comunicarse con un _CONTROLADOR_ en específico, ese _Controlador_ ya sabe que _Modelo_ va a llamar y que vista va a ejecutar.
-- 
-
+- Validator
+  - **_npm i express-validator_**
+  - Hacer validaciones con _Express Validator_.
 
 ### Creación del proyecto
 
