@@ -9,6 +9,8 @@ connectDB();
 
 const app = express();
 
+app.use(express.json());
+
 // Routes, .use porque va soportar todos los VERBOS HTTP
 app.use('/api/projects', projectRoutes);
 
