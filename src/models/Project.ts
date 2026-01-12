@@ -1,7 +1,13 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 // TypeScript
-export type ProjectType = Document & {
+// export type ProjectType = Document & {
+//   projectName: string;
+//   clientName: string;
+//   description: string;
+// };
+
+export interface IProject extends Document {
   projectName: string;
   clientName: string;
   description: string;
@@ -26,6 +32,6 @@ const ProjectSchema: Schema = new Schema({
   },
 });
 
-const Project = mongoose.model<ProjectType>('Project', ProjectSchema);
+const Project = mongoose.model<IProject>('Project', ProjectSchema);
 
 export default Project;
