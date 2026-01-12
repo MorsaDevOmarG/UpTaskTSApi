@@ -39,7 +39,18 @@
 - Colors
   - **_ npm i colors_**
   - Sirve para poder personalizar los colores de las alertas o _logs_ en consola.
-
+- Mongoose
+  - **_npm i mongoose_**
+  - _ODM_ para _MongoDB_.
+  - Es un _ODM_ para _Node.js_.
+  - _ORM: Object Relational Mapping_, en el caso de _ODM_ es lo mismo solo la D por _Document_ que es como _MongoDB_ se le conoce a la información almacenada en las colecciones.
+  - _Mongoose_ es un _ODM_ que simplifica bastantes tareas y puede ser la herramienta más dura de este tipo en _Node.js_.
+  - Al igual que _Sequelize_ se utilizan Modelos para diseñar los tipos de datos que tendrá nuestra información.
+  - Tiene una gran cantidad de métodos para realizar las diferentes acciones del _CRUD_.
+  - Se utiliza junto otras dependencias para manejar autenticación de usuarios, _has de password_ y más.
+- ENV
+  - **_npm i dotenv_**
+  - Sirve para crear variables de entorno.
 
 ### Creación del proyecto
 
