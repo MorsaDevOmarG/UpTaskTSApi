@@ -4,7 +4,6 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
-import Task from "../models/Task";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -110,6 +109,14 @@ router.put(
     .withMessage("La Descripción de la Tarea es Obligatoria"),
   handleInputErrors,
   TaskController.updateTask
+);
+
+router.delete(
+  "/:projectId/tasks/:taskId",
+  // validateProjectExists,
+  param("taskId").isMongoId().withMessage("ID no válido"),
+  handleInputErrors,
+  TaskController.deleteTask
 );
 
 export default router;
