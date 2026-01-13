@@ -82,3 +82,17 @@
 ### Creación del proyecto
 
   - **_npm init --y_**
+
+#### NESTED RESOURCE ROUTING
+
+- Enrutamiento de Recursos Anidados, es un patrón de diseño en la construcción de _URLS_ para _APIS_, especialmente en _API'S RESTFUL_, donde las relaciones jerárquicas entre recursos son expresadas en la estructura de la _URL_.
+- Este patrón es muy común en aplicaciones _web_ y _móviles_ que manejan datos relacionados en forma de recursos.
+  - ## VENTAJAS
+    - **/projects/:projectId/taks**
+      - Si el proyecto existe
+      - Si el usuario tiene permisos
+      - Crear tareas en ese proyecto
+- En _EXPRESS_ la forma de implementarlo es mediante: **MIDDLEWARE**.
+  - ## MIDDLEWARE
+    - Nos va a permitir darle un mejor orden a nuestras rutas para aplicar este patrón de diseño para las _URL'S_.
+    - Debido a que los _Middleware_ se ejecutan en las peticiones _HTTP_ y antes del controlador, los hacen un gran lugar para poder ejecutar ciertas acciones referentes a si los proyectos existen o si el usuario tiene permisos para acceder a él.
