@@ -3,6 +3,7 @@ import { ProjectController } from "../controllers/ProjectController";
 import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
+import { validateProjectExists } from "../middleware/project";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -61,6 +62,7 @@ router.delete(
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
 router.post(
   '/:projectId/tasks',
+  validateProjectExists,
   TaskController.createTask
 );
 
