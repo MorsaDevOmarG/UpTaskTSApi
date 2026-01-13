@@ -15,10 +15,13 @@ export class TaskController {
       // project.tasks.push(task._id);
       req.project.tasks.push(task._id);
 
-      await task.save();
+      // await task.save();
 
-      // await project.save();
-      await req.project.save();
+      // // await project.save();
+      // await req.project.save();
+
+      // Los await de aquí arriba, los pasamos acá para mejorar el rendimiento de la APP
+      await Promise.allSettled([task.save(), req.project.save()]);
 
       res.send("Tarea creada correctamente");
 
