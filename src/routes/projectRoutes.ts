@@ -3,7 +3,8 @@ import { ProjectController } from "../controllers/ProjectController";
 import { body, param } from "express-validator";
 import { handleInputErrors } from '../middleware/validation';
 import { TaskController } from "../controllers/TaskController";
-import { validateProjectExists } from "../middleware/project";
+import { projectExists } from "../middleware/project";
+import { taskExists } from "../middleware/task";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -63,12 +64,12 @@ router.delete(
 // RUTAS para las TAREAS
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
 
-// Con router param, las rutas que contengan: projectId, tomarán lo que pongamos, en este caso esa validación:  validateProjectExists
-router.param("projectId", validateProjectExists);
+// Con router param, las rutas que contengan: projectId, tomarán lo que pongamos, en este caso esa validación:  projectExists
+router.param("projectId", projectExists);
 
 router.post(
   "/:projectId/tasks",
-  // validateProjectExists,
+  // projectExists,
   body("name")
     .notEmpty()
     .withMessage("El Nombre de la Tarea es Obligatorio"),
@@ -81,13 +82,15 @@ router.post(
 
 router.get(
   "/:projectId/tasks",
-  // validateProjectExists,
+  // projectExists,
   TaskController.getProjectTasks,
 );
 
+router.param("taskId", taskExists);
+
 router.get(
   "/:projectId/tasks/:taskId",
-  // validateProjectExists,
+  // projectExists,
   param("taskId")
     .isMongoId()
     .withMessage("ID no válido"),
@@ -97,7 +100,7 @@ router.get(
 
 router.put(
   "/:projectId/tasks/:taskId",
-  // validateProjectExists,
+  // projectExists,
   param("taskId")
     .isMongoId()
     .withMessage("ID no válido"),
@@ -113,7 +116,7 @@ router.put(
 
 router.delete(
   "/:projectId/tasks/:taskId",
-  // validateProjectExists,
+  // projectExists,
   param("taskId")
     .isMongoId()
     .withMessage("ID no válido"),
