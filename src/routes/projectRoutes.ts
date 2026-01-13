@@ -61,7 +61,7 @@ router.delete(
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
 router.post(
   '/:projectId/tasks',
-  TaskController.createProject
+  TaskController.createTask
 );
 
 export default router;
