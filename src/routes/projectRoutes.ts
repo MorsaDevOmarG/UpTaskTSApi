@@ -4,6 +4,7 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { validateProjectExists } from "../middleware/project";
+import Task from "../models/Task";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -73,6 +74,12 @@ router.post(
     .withMessage("La Descripción de la Tarea es Obligatoria"),
   handleInputErrors,
   TaskController.createTask
+);
+
+router.get(
+  "/:projectId/tasks",
+  validateProjectExists,
+  TaskController.getProjectTasks,
 );
 
 export default router;
