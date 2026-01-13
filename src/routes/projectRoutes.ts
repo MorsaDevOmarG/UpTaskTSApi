@@ -63,9 +63,13 @@ router.delete(
 
 // RUTAS para las TAREAS
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
+
+// Con router param, las rutas que contengan: projectId, tomarán lo que pongamos, en este caso esa validación:  validateProjectExists
+router.param("projectId", validateProjectExists);
+
 router.post(
   "/:projectId/tasks",
-  validateProjectExists,
+  // validateProjectExists,
   body("name")
     .notEmpty()
     .withMessage("El Nombre de la Tarea es Obligatorio"),
@@ -78,14 +82,18 @@ router.post(
 
 router.get(
   "/:projectId/tasks",
-  validateProjectExists,
+  // validateProjectExists,
   TaskController.getProjectTasks,
 );
 
 router.get(
   "/:projectId/tasks/:taskId",
-  validateProjectExists,
-  TaskController.getTaskById,
+  // validateProjectExists,
+  param("taskId")
+    .isMongoId()
+    .withMessage("ID no válido"),
+  handleInputErrors,
+  TaskController.getTaskById
 );
 
 export default router;

@@ -58,7 +58,7 @@ export class TaskController {
         return res.status(404).json({ error: error.message });
       }
 
-      if (task.project !== req.project._id) {
+      if (task.project.toString() !== req.project._id.toString()) {
         const error = new Error("Acción no válida");
 
         return res.status(400).json({ error: error.message });
