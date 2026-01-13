@@ -35,7 +35,8 @@ export class ProjectController {
     // console.log(id);
 
     try {
-      const project = await Project.findById(id);
+      // const project = await Project.findById(id);
+      const project = (await Project.findById(id)).populate('tasks');
 
       if (!project) {
         const error = new Error("Proyecto NO encontrado...");
