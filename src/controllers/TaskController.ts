@@ -34,7 +34,8 @@ export class TaskController {
 
   static getProjectTasks = async (req: Request, res: Response) => {
     try {
-      const tasks = await Task.find({ project: req.project._id });
+      // populate: es como un JOIN en una base de datos relacional, con ello tremos toda la info del PROYECTO
+      const tasks = await Task.find({ project: req.project._id }).populate('project');
 
       res.json(tasks);
     } catch (error) {
