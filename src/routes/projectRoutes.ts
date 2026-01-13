@@ -26,7 +26,9 @@ router.get("/", ProjectController.getAllProjects);
 
 router.get(
   "/:id",
-  param("id").isMongoId().withMessage("ID no válido"),
+  param("id")
+    .isMongoId()
+    .withMessage("ID no válido"),
   handleInputErrors,
   ProjectController.getProjectById
 );
@@ -61,8 +63,15 @@ router.delete(
 // RUTAS para las TAREAS
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
 router.post(
-  '/:projectId/tasks',
+  "/:projectId/tasks",
   validateProjectExists,
+  body("name")
+    .notEmpty()
+    .withMessage("El Nombre de la Tarea es Obligatorio"),
+  body("description")
+    .notEmpty()
+    .withMessage("La Descripción de la Tarea es Obligatoria"),
+  handleInputErrors,
   TaskController.createTask
 );
 
