@@ -4,7 +4,6 @@ import Task from "../models/Task";
 
 export class TaskController {
   static createTask = async (req: Request, res: Response) => {
-
     try {
       const task = new Task(req.body);
       // console.log(task);
@@ -24,7 +23,6 @@ export class TaskController {
       await Promise.allSettled([task.save(), req.project.save()]);
 
       res.send("Tarea creada correctamente");
-
     } catch (error) {
       // console.log(error);
 
@@ -36,7 +34,9 @@ export class TaskController {
     try {
       // populate: es como un JOIN en una base de datos relacional, con ello tremos toda la info del PROYECTO
       // const tasks = await Task.find({ project: req.project._id });
-      const tasks = await Task.find({ project: req.project._id }).populate('project');
+      const tasks = await Task.find({ project: req.project._id }).populate(
+        "project"
+      );
 
       res.json(tasks);
     } catch (error) {
@@ -53,7 +53,7 @@ export class TaskController {
       const task = await Task.findById(taskId);
 
       if (!task) {
-        const error = new Error('Tarea no encontrada');
+        const error = new Error("Tarea no encontrada");
 
         return res.status(404).json({ error: error.message });
       }
@@ -65,10 +65,32 @@ export class TaskController {
       }
 
       res.json(task);
-
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
   };
 
+  static updateTask = async (req: Request, res: Response) => {
+    try {
+      const { taskId } = req.params;
+
+      const task = await Task.findByIdAndUpdate(taskId, req.body);
+
+      if (!task) {
+        const error = new Error("Tarea no encontrada");
+
+        return res.status(404).json({ error: error.message });
+      }
+
+      if (task.project.toString() !== req.project._id.toString()) {
+        const error = new Error("Acción no válida");
+
+        return res.status(400).json({ error: error.message });
+      }
+
+      res.send("Tarea actualizada correctamente");
+    } catch (error) {
+      res.status(500).json({ error: "Hubo un error" });
+    }
+  };
 }
