@@ -59,11 +59,11 @@ export class TaskController {
       // }
 
       // if (task.project.toString() !== req.project._id.toString()) {
-      if (req.task.project.toString() !== req.project._id.toString()) {
-        const error = new Error("Acción no válida");
+      // if (req.task.project.toString() !== req.project._id.toString()) {
+      //   const error = new Error("Acción no válida");
 
-        return res.status(400).json({ error: error.message });
-      }
+      //   return res.status(400).json({ error: error.message });
+      // }
 
       res.json(req.task);
     } catch (error) {
@@ -85,11 +85,11 @@ export class TaskController {
       // }
 
       // if (task.project.toString() !== req.project._id.toString()) {
-      if (req.task.project.toString() !== req.project._id.toString()) {
-        const error = new Error("Acción no válida");
+      // if (req.task.project.toString() !== req.project._id.toString()) {
+      //   const error = new Error("Acción no válida");
 
-        return res.status(400).json({ error: error.message });
-      }
+      //   return res.status(400).json({ error: error.message });
+      // }
 
       // task.name = req.body.name;
       // task.description = req.body.description;

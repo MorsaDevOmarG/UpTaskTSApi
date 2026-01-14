@@ -4,7 +4,7 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from '../middleware/validation';
 import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
-import { taskExists } from "../middleware/task";
+import { taskBelongToProject, taskExists } from "../middleware/task";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -87,6 +87,7 @@ router.get(
 );
 
 router.param("taskId", taskExists);
+router.param("taskId", taskBelongToProject);
 
 router.get(
   "/:projectId/tasks/:taskId",
