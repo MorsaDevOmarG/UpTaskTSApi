@@ -6,6 +6,13 @@ export class ProjectController {
     const project = new Project(req.body);
     // res.send('Creando proyecto');
 
+    // Este IF se agrego para FORZAR un ERROR y probar...
+    // if (true) {
+    //   const error = new Error("Proyecto NO encontrado...");
+
+    //   return res.status(404).json({ error: error.message });
+    // }
+
     try {
       // Otra forma: await Project.create(req.body);
 
@@ -36,7 +43,7 @@ export class ProjectController {
 
     try {
       // const project = await Project.findById(id);
-      const project = (await Project.findById(id)).populate('tasks');
+      const project = (await Project.findById(id)).populate("tasks");
 
       if (!project) {
         const error = new Error("Proyecto NO encontrado...");
