@@ -78,6 +78,9 @@
 - Validator
   - **_npm i express-validator_**
   - Hacer validaciones con _Express Validator_.
+- CORS
+  - **_npm i cors_**
+  - **_npm i -D @types/cors_**
 
 ### Creación del proyecto
 
