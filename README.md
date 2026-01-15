@@ -81,6 +81,9 @@
 - CORS
   - **_npm i cors_**
   - **_npm i -D @types/cors_**
+- MORGAN
+  - **_npm i morgan_**
+  - **_npm i -D @types/morgan_**
 
 ### Creación del proyecto
 
