@@ -33,7 +33,7 @@ export class ProjectController {
       console.log(error);
     }
 
-    res.send("Todos los proyectos");
+    // res.send("Todos los proyectos");
   };
 
   static getProjectById = async (req: Request, res: Response) => {
