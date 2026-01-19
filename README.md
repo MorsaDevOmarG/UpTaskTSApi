@@ -102,3 +102,14 @@
   - ## MIDDLEWARE
     - Nos va a permitir darle un mejor orden a nuestras rutas para aplicar este patrón de diseño para las _URL'S_.
     - Debido a que los _Middleware_ se ejecutan en las peticiones _HTTP_ y antes del controlador, los hacen un gran lugar para poder ejecutar ciertas acciones referentes a si los proyectos existen o si el usuario tiene permisos para acceder a él.
+
+### AUTENTICACIÓN
+
+- Hoy en día no hay solo sitio web que sea utilizado por miles de usuarios que no tenga autenticación y registro de usuarios.
+- Sitios de bancos, tiendas virtuales, aplicaciones de celular, todos tiene algún sistema de autenticación integrado.
+- La autenticación nos permitirá identificar a nuestros usuarios y darles ciertos accesos a su información.
+
+  ## PRINCIPIOS
+    - Un usuario se puede autenticar con algo que él recuerda (Email y Password).
+    - Se puede autenticar con un dispositivo físico (Mensaje SMS o alerta).
+    - Se puede autenticar con algo físico (Huella Digital, Voz o Cara).
