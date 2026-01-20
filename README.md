@@ -87,6 +87,21 @@
 - HASHEAR PASSWORD
   - **_npm i bcrypt_**
   - **_npm i -D @types/bcrypt_**
+- MAILTRAIP
+  - Instalación:
+    - **_npm i nodemailer_**
+    - **_npm i -D @types/nodemailer_**
+    - _https://mailtrap.io/inboxes_
+    - Presionamos dentro de la página:
+      - _SanBoxes_
+      - Si tenemos proyecto, damos click en él, como se mira en la imagen de abajo:
+        - ![alt text](image-1.png)
+    - Elegimos la tecnología con la que trabajamos y copiamos el bloque de código que nos da, en este proyecto fue: **NODE.JS**
+      - ![alt text](image-2.png)
+  - _https://mailtrap.io/_
+  - Pruebas de envío de correos
+  - Servicio para ya en **PRODUCCIÓN**
+    - _resend.com_  
 
 ### Creación del proyecto
 
