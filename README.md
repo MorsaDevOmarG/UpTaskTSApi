@@ -84,6 +84,9 @@
 - MORGAN
   - **_npm i morgan_**
   - **_npm i -D @types/morgan_**
+- HASHEAR PASSWORD
+  - **_npm i bcrypt_**
+  - **_npm i -D @types/bcrypt_**
 
 ### Creación del proyecto
 
@@ -119,4 +122,3 @@
     - Los _password_ siempre deben estar **hasheados**.
     - Una buena forma de evitar llenarte de usuarios es enviar un enlace de verificación al e-mail y entonces el usuario deberá realizar alguna acción (también posible con tarjeta de crédito o número celular).
     - Una vez que el usuario crea su cuenta y la confirma, puede usar la app.
-    
