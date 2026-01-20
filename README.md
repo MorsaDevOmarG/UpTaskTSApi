@@ -113,3 +113,10 @@
     - Un usuario se puede autenticar con algo que él recuerda (Email y Password).
     - Se puede autenticar con un dispositivo físico (Mensaje SMS o alerta).
     - Se puede autenticar con algo físico (Huella Digital, Voz o Cara).
+
+  ### ALGORITMO PARA CREAR CUENTA
+    - Los usuarios deberán ser únicos, usualmente para crear una cuenta se pide el e-mail del usuario.
+    - Los _password_ siempre deben estar **hasheados**.
+    - Una buena forma de evitar llenarte de usuarios es enviar un enlace de verificación al e-mail y entonces el usuario deberá realizar alguna acción (también posible con tarjeta de crédito o número celular).
+    - Una vez que el usuario crea su cuenta y la confirma, puede usar la app.
+    
