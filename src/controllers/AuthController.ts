@@ -57,4 +57,16 @@ export class AuthController {
       res.status(500).json({ error: 'Hubo un error' });
     }
   }
+
+  static confirmAccount = async (req: Request, res: Response) => {
+    try {
+      const { token } = req.body;
+      console.log(token);
+
+      const tokenExists = await Token.findOne({ token });
+      console.log(tokenExists);
+    } catch (error) {
+      res.status(500).json({ error: 'Hubo un error' });
+    }
+  }
 }
