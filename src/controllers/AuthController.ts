@@ -1,11 +1,11 @@
 import { Response, Request } from 'express';
 import User from '../models/User';
-import bcrypt from 'bcrypt';
+// import bcrypt from 'bcrypt';
 import { hasPassword } from '../utils/auth';
 import Token from '../models/Token';
 import { generateToken } from '../utils/token';
-import { transporter } from '../config/nodemailer';
-
+import { AuthEmail } from '../emails/AuthEmail';
+// import { transporter } from '../config/nodemailer';
 export class AuthController {
   static createAccount = async (req: Request, res: Response) => {
     // res.send('Desde /api/auth - AuthController');
@@ -35,17 +35,21 @@ export class AuthController {
       token.user = user._id;
 
       // Enviar e-mail
-      await transporter.sendMail({
-        from: 'UpTask <admin@uptask.com>',
-        to: user.email,
-        subject: 'UpTask - Confirma tu cuenta',
-        text: 'UpTask - Confirma tu cuenta',
-        html: `<p>Probando e-mail</p>`
-      })
+      // await transporter.sendMail({
+      //   from: 'UpTask <admin@uptask.com>',
+      //   to: user.email,
+      //   subject: 'UpTask - Confirma tu cuenta',
+      //   text: 'UpTask - Confirma tu cuenta',
+      //   html: `<p>Probando e-mail</p>`
+      // })
+      AuthEmail.sendConfirmationEmail({
+        email: user.email,
+        name: user.name,
+        token: token.token
+      });
 
-      await user.save();
-      await token.save();
-
+      // await user.save();
+      // await token.save();
       await Promise.allSettled([user.save(), token.save()]);
 
       res.send('Cuenta creada, revisa tu email para confirmarla');
