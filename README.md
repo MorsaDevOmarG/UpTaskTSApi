@@ -137,3 +137,9 @@
     - Los _password_ siempre deben estar **hasheados**.
     - Una buena forma de evitar llenarte de usuarios es enviar un enlace de verificación al e-mail y entonces el usuario deberá realizar alguna acción (también posible con tarjeta de crédito o número celular).
     - Una vez que el usuario crea su cuenta y la confirma, puede usar la app.
+
+  ### ALGORITMO PARA INICIAR SESIÓN
+    - La primer comprobación que debemos realizar es saber si el usuario existe o no.
+    - La segunda es revisar si su cuenta ya ha sido confirmada.
+    - La última es revisar si el _password_ es correcto, en caso de que si lo sea, el usuario es autenticado.
+

@@ -1,10 +1,10 @@
-import { Response, Request } from 'express';
-import User from '../models/User';
+import { Response, Request } from "express";
+import User from "../models/User";
 // import bcrypt from 'bcrypt';
-import { hasPassword } from '../utils/auth';
-import Token from '../models/Token';
-import { generateToken } from '../utils/token';
-import { AuthEmail } from '../emails/AuthEmail';
+import { hasPassword } from "../utils/auth";
+import Token from "../models/Token";
+import { generateToken } from "../utils/token";
+import { AuthEmail } from "../emails/AuthEmail";
 // import { transporter } from '../config/nodemailer';
 export class AuthController {
   static createAccount = async (req: Request, res: Response) => {
@@ -17,13 +17,13 @@ export class AuthController {
       const userExists = await User.findOne({ email });
 
       if (userExists) {
-        const error = new Error('El Usuario ya esta registrado');
+        const error = new Error("El Usuario ya esta registrado");
 
         return res.status(409).json({ error: error.message });
       }
 
       const user = new User(req.body);
-      
+
       // Hash Password
       // const salt = await bcrypt.genSalt(10);
       // user.password = await bcrypt.hash(password, salt);
@@ -45,18 +45,18 @@ export class AuthController {
       AuthEmail.sendConfirmationEmail({
         email: user.email,
         name: user.name,
-        token: token.token
+        token: token.token,
       });
 
       // await user.save();
       // await token.save();
       await Promise.allSettled([user.save(), token.save()]);
 
-      res.send('Cuenta creada, revisa tu email para confirmarla');
+      res.send("Cuenta creada, revisa tu email para confirmarla");
     } catch (error) {
-      res.status(500).json({ error: 'Hubo un error' });
+      res.status(500).json({ error: "Hubo un error" });
     }
-  }
+  };
 
   static confirmAccount = async (req: Request, res: Response) => {
     try {
@@ -67,7 +67,7 @@ export class AuthController {
       // console.log(tokenExists);
 
       if (!tokenExists) {
-        const error = new Error('Token no válido');
+        const error = new Error("Token no válido");
 
         return res.status(401).json({ error: error.message });
       }
@@ -79,9 +79,27 @@ export class AuthController {
 
       await Promise.allSettled([user.save(), tokenExists.deleteOne()]);
 
-      res.send('Cuenta confirmada correctamente');
+      res.send("Cuenta confirmada correctamente");
     } catch (error) {
-      res.status(500).json({ error: 'Hubo un error' });
+      res.status(500).json({ error: "Hubo un error" });
     }
-  }
+  };
+
+  static login = async (req: Request, res: Response) => {
+    try {
+      // res.send('Login');
+
+      const { email, password } = req.body;
+
+      const user = await Token.findOne({ email });
+
+      if (!user) {
+        const error = new Error("Usuario no encontrado");
+
+        return res.status(401).json({ error: error.message });
+      }
+    } catch (error) {
+      res.status(500).json({ error: "Hubo un error" });
+    }
+  };
 }
