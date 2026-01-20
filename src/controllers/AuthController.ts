@@ -69,7 +69,7 @@ export class AuthController {
       if (!tokenExists) {
         const error = new Error("Token no válido");
 
-        return res.status(401).json({ error: error.message });
+        return res.status(404).json({ error: error.message });
       }
 
       const user = await User.findById(tokenExists.user);
@@ -91,10 +91,28 @@ export class AuthController {
 
       const { email, password } = req.body;
 
-      const user = await Token.findOne({ email });
+      const user = await User.findOne({ email });
 
       if (!user) {
         const error = new Error("Usuario no encontrado");
+
+        return res.status(404).json({ error: error.message });
+      }
+      // console.log(user);
+
+      if (!user.confirmed) {
+        const token = new Token();
+        token.user = user._id;
+        token.token = generateToken();
+        await token.save();
+
+        AuthEmail.sendConfirmationEmail({
+          email: user.email,
+          name: user.name,
+          token: token.token,
+        });
+
+        const error = new Error("La cuenta no ha sido confirmada, hemos enviado un e-mail de confirmación");
 
         return res.status(401).json({ error: error.message });
       }
