@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import User from "../models/User";
 // import bcrypt from 'bcrypt';
-import { hasPassword } from "../utils/auth";
+import { checkPassword, hasPassword } from "../utils/auth";
 import Token from "../models/Token";
 import { generateToken } from "../utils/token";
 import { AuthEmail } from "../emails/AuthEmail";
@@ -112,10 +112,24 @@ export class AuthController {
           token: token.token,
         });
 
-        const error = new Error("La cuenta no ha sido confirmada, hemos enviado un e-mail de confirmación");
+        const error = new Error(
+          "La cuenta no ha sido confirmada, hemos enviado un e-mail de confirmación",
+        );
 
         return res.status(401).json({ error: error.message });
       }
+
+      // Revisar PASSWORD
+      const isPasswordCorrect = await checkPassword(password, user.password);
+      // console.log(isPasswordCorrect);
+
+      if (!isPasswordCorrect) {
+        const error = new Error("Password Incorrecto");
+
+        return res.status(404).json({ error: error.message });
+      }
+
+      res.send('Autenticado...');
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
