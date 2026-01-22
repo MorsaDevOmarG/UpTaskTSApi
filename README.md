@@ -148,3 +148,24 @@
     - Si el usuario existe se el envía un _Token_ que expira en 15 minutos.
     - El _Token_ es enviado vía e-mail y el usuario deberá visitar un enlace e ingresar ese _token_; si el _token_ es válido le permitimos reestablecer su _password_.
 
+## JSON WEB TOKEN
+
+  - **JWT** es un estándar abierto que define un formato compacto y seguro para transmitir información entre dos partes de manera segura como un objeto _JSON_.
+  - ### VENTAJAS
+
+    - **SEGURIDAD**
+      - Utiliza algoritmos de firma digital para asegurar que los datos no han sido alterados durante la transmisión.
+      - Esto garantiza la integridad de la información y permite a las partes confiar en su válidez.
+    - **AUTENTICACIÓN Y AUTORIZACIÓN**
+      - Se utiliza comúnmente para autenticar usuarios y permitirles acceder a recursos protegidos.
+      - Una vez que un usuario ha sido autenticado correctamente, se le proporciona un _JWT_ que contiene información sobre sus permisos y roles.
+      - El servidor puede verificar la válidez del _token_ y autorizar o reestringir el acceso.
+    - **TRANSFERENCIA EFICIENTE DE DATOS**
+      - _JWT_ es un formato compacto que se puede transmitir fácilmente a través de diferentes medios, como encabezados: _HTTP, URL_ o incluso en el cuerpo de una solicitud _HTTP_.
+      - Esto lo hace adecuado para su uso en aplicaciones _Web_ y servicios de _API_.
+    - **STATELESS (sin estado)**
+      - Los _JWT_ son "sin estado", lo que significa que la información necesaria para autenticar y autorizar a un usuario se encuentre directamente en el _token_.
+      - Esto elimina la necesidad de almacenar información de sesión en el servidor, lo que facilita la escalabilidad de las aplicaciones distribuidas.
+      - Proporcionan un mecanismo seguro y eficiente para transmitir información entre dos partes, autenticar usuarios y autorizar el acceso a recursos protegidos en aplicaciones _web_ y servicios _API_.
+      - Su naturaleza compacta, seguridad y facilidad de uso lo convierten en una opción popular para la implementación de sistemas de autenticación y autorización.
+###
