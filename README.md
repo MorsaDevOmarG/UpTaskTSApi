@@ -102,6 +102,11 @@
   - Pruebas de envío de correos
   - Servicio para ya en **PRODUCCIÓN**
     - _resend.com_  
+- JWT
+  - **_npm i jsonwebtoken_**
+  - **_npm i -D @types/jsonwebtoken_**
+  - _Json Web Token_
+  - https://www.jwt.io/
 
 ### Creación del proyecto
 
