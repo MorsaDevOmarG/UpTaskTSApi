@@ -143,3 +143,8 @@
     - La segunda es revisar si su cuenta ya ha sido confirmada.
     - La última es revisar si el _password_ es correcto, en caso de que si lo sea, el usuario es autenticado.
 
+  ### ALGORITMO PARA REESTABLECER PASSWORD
+    - La primer comprobación que debemos realizar es saber si el usuario existe o no.
+    - Si el usuario existe se el envía un _Token_ que expira en 15 minutos.
+    - El _Token_ es enviado vía e-mail y el usuario deberá visitar un enlace e ingresar ese _token_; si el _token_ es válido le permitimos reestablecer su _password_.
+
