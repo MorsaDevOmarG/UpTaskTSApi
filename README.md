@@ -173,4 +173,26 @@
       - Esto elimina la necesidad de almacenar información de sesión en el servidor, lo que facilita la escalabilidad de las aplicaciones distribuidas.
       - Proporcionan un mecanismo seguro y eficiente para transmitir información entre dos partes, autenticar usuarios y autorizar el acceso a recursos protegidos en aplicaciones _web_ y servicios _API_.
       - Su naturaleza compacta, seguridad y facilidad de uso lo convierten en una opción popular para la implementación de sistemas de autenticación y autorización.
-###
+
+### COOKIES & LOCALSTORAGE
+
+- # LOCALSTORAGE
+  - ## VENTAJAS
+    - **Facilidad de uso**: _LocalStorage_ es fácil de utilizar y no requiere configuración adicional para almacenar y recuperar datos.
+    - **Persistencia**: Los datos almacenados en _LocalStorage_ permanecen en el navegador incluso después de cerrarlo y reiniciar la computadora.
+    - **Rendimiento**: Puede ser más rápido acceder a los datos en _LocalStorage_ que en las _Cookies_ debido a que no se envían con cada solicitud _HTTP_.
+  - ## DESVENTAJAS
+    - **Vulnerabilidad a ataques _XSS_**: Los datos en _LocalStorage_ son vulnerables a ataques de _Scripts_ entre sitios (_XSS_) sino se implementan adecuadas medidas de seguridad.
+    - **Capacidad limitada**: El almacenamiento en _LocalStorage_ está limitado a un tamaño máximo de 5-10 _MB_ por dominio.
+    - **No compatible con solicitudes cruzads (_CORS_)**: Los datos almacenados en _LocalStorage_ no se envían automáticamente con las solicitudes _CORS_ a otros dominios.
+
+- # COOKIES
+  - ## VENTAJAS
+    - **Seguridad**: Las _Cookies_ pueden configurarse con la sbanderas: _HttpOnly_ y _Secure_ para aumentar la seguridad y proteger contra ataques _XSS_ y _CSRF_.
+    - **Soporte para _CORS_**: Las _Cookies_ se envían automáticamente con las solicitudes _CORS_, lo que facilita el manejo de autenticación en aplicaciones distribuidas.
+    - **Control de expiración**: Puede configurar una fecha de expiración para las _Cookies_, y estas se eliminan automáticamente.
+  - ## DESVENTAJAS
+    - **Sobrecarga de red**: Las _Cookies_ se envían con cada solicitud _HTTP_, lo que puede aumentar el tráfico de red si los _tokens_ son grandes.
+    - **Capacidad limitada**: Al igual que _LocalStorage_, las _Cookies_ también tienen un tamaño máximo de almacenamiento por dominio (generalmente 4KB por _Cookie_).
+    - **Menos persistencia**: Las _Cookies_ pueden ser eliminadas por el usuario o expirar automáticamente después de un período de tiempo, lo que puede requerir una renovación periódica de los _tokens_.
+
