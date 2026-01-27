@@ -1,7 +1,7 @@
 import { Router } from "express";
 import { ProjectController } from "../controllers/ProjectController";
 import { body, param } from "express-validator";
-import { handleInputErrors } from '../middleware/validation';
+import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
 import { taskBelongToProject, taskExists } from "../middleware/task";
@@ -18,49 +18,43 @@ router.post(
   body("clientName")
     .notEmpty()
     .withMessage("El Nombre del Cliente es Obligatorio"),
-  body("description")
-    .notEmpty()
-    .withMessage("La Descripción es Obligatoria"),
+  body("description").notEmpty().withMessage("La Descripción es Obligatoria"),
   handleInputErrors,
-  ProjectController.createProject
+  ProjectController.createProject,
 );
 
-router.get("/", ProjectController.getAllProjects);
+router.get(
+  "/",
+  authenticate,
+  ProjectController.getAllProjects
+);
 
 router.get(
   "/:id",
-  param("id")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("id").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
-  ProjectController.getProjectById
+  ProjectController.getProjectById,
 );
 
 router.put(
   "/:id",
-  param("id")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("id").isMongoId().withMessage("ID no válido"),
   body("projectName")
     .notEmpty()
     .withMessage("El Nombre del Proyecto es Obligatorio"),
   body("clientName")
     .notEmpty()
     .withMessage("El Nombre del Cliente es Obligatorio"),
-  body("description")
-    .notEmpty()
-    .withMessage("La Descripción es Obligatoria"),
+  body("description").notEmpty().withMessage("La Descripción es Obligatoria"),
   handleInputErrors,
-  ProjectController.updateProject
+  ProjectController.updateProject,
 );
 
 router.delete(
   "/:id",
-  param("id")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("id").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
-  ProjectController.deleteProject
+  ProjectController.deleteProject,
 );
 
 // RUTAS para las TAREAS
@@ -72,14 +66,12 @@ router.param("projectId", projectExists);
 router.post(
   "/:projectId/tasks",
   // projectExists,
-  body("name")
-    .notEmpty()
-    .withMessage("El Nombre de la Tarea es Obligatorio"),
+  body("name").notEmpty().withMessage("El Nombre de la Tarea es Obligatorio"),
   body("description")
     .notEmpty()
     .withMessage("La Descripción de la Tarea es Obligatoria"),
   handleInputErrors,
-  TaskController.createTask
+  TaskController.createTask,
 );
 
 router.get(
@@ -94,49 +86,37 @@ router.param("taskId", taskBelongToProject);
 router.get(
   "/:projectId/tasks/:taskId",
   // projectExists,
-  param("taskId")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("taskId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
-  TaskController.getTaskById
+  TaskController.getTaskById,
 );
 
 router.put(
   "/:projectId/tasks/:taskId",
   // projectExists,
-  param("taskId")
-    .isMongoId()
-    .withMessage("ID no válido"),
-  body("name")
-    .notEmpty()
-    .withMessage("El Nombre de la Tarea es Obligatorio"),
+  param("taskId").isMongoId().withMessage("ID no válido"),
+  body("name").notEmpty().withMessage("El Nombre de la Tarea es Obligatorio"),
   body("description")
     .notEmpty()
     .withMessage("La Descripción de la Tarea es Obligatoria"),
   handleInputErrors,
-  TaskController.updateTask
+  TaskController.updateTask,
 );
 
 router.delete(
   "/:projectId/tasks/:taskId",
   // projectExists,
-  param("taskId")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("taskId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
-  TaskController.deleteTask
+  TaskController.deleteTask,
 );
 
 router.post(
   "/:projectId/tasks/:taskId/status",
-  param("taskId")
-    .isMongoId()
-    .withMessage("ID no válido"),
-  body('status')
-    .notEmpty()
-    .withMessage('El Status el Obligatorio'),
+  param("taskId").isMongoId().withMessage("ID no válido"),
+  body("status").notEmpty().withMessage("El Status el Obligatorio"),
   handleInputErrors,
-  TaskController.updateStatus
+  TaskController.updateStatus,
 );
 
 export default router;

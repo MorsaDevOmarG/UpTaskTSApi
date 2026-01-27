@@ -18,6 +18,7 @@ export const authenticate = async (
   // console.log(req.headers.authorization);
 
   const bearer = req.headers.authorization;
+  console.log(bearer);
 
   if (!bearer) {
     const error = new Error("No Autorizado");
