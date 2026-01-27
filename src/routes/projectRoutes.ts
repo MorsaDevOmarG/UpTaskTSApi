@@ -9,9 +9,12 @@ import { authenticate } from "../middleware/auth";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
+
+// Aplicar el middleware de autenticación a todas las rutas de este router
+router.use(authenticate);
+
 router.post(
   "/",
-  authenticate,
   body("projectName")
     .notEmpty()
     .withMessage("El Nombre del Proyecto es Obligatorio"),
@@ -25,7 +28,6 @@ router.post(
 
 router.get(
   "/",
-  authenticate,
   ProjectController.getAllProjects
 );
 
