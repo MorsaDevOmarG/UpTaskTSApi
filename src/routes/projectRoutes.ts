@@ -6,6 +6,7 @@ import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
 import { taskBelongToProject, taskExists } from "../middleware/task";
 import { authenticate } from "../middleware/auth";
+import { TeamMemberController } from "../controllers/TeamController";
 
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
@@ -119,6 +120,16 @@ router.post(
   body("status").notEmpty().withMessage("El Status el Obligatorio"),
   handleInputErrors,
   TaskController.updateStatus,
+);
+
+// Routes For Teams
+router.post(
+  "/:projectId/teams",
+  body("email")
+    .isEmail()
+    .withMessage("E-mail no válido"),
+  handleInputErrors,
+  TeamMemberController.findMemberByEmail,
 );
 
 export default router;
