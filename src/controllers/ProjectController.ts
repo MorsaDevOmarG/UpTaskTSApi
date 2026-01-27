@@ -33,7 +33,7 @@ export class ProjectController {
         $or: [
           {
             manager: { $in: req.user._id },
-          }
+          },
         ],
       });
 
@@ -87,6 +87,12 @@ export class ProjectController {
         return res.status(404).json({ error: error.message });
       }
 
+      if (project.manager.toString() !== req.user._id.toString()) {
+        const error = new Error("Solo el Manager puede actualizar el proyecto");
+
+        return res.status(404).json({ error: error.message });
+      }
+
       project.projectName = req.body.projectName;
       project.clientName = req.body.clientName;
       project.description = req.body.description;
@@ -109,6 +115,12 @@ export class ProjectController {
 
       if (!project) {
         const error = new Error("Proyecto NO encontrado...");
+
+        return res.status(404).json({ error: error.message });
+      }
+
+      if (project.manager.toString() !== req.user._id.toString()) {
+        const error = new Error("Solo el Manager puede eliminar un proyecto");
 
         return res.status(404).json({ error: error.message });
       }
