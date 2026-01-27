@@ -10,8 +10,8 @@ import { authenticate } from "../middleware/auth";
 const router = Router();
 // En POSTMAN: http://localhost:4000/api/projects
 router.post(
-  authenticate,
   "/",
+  authenticate,
   body("projectName")
     .notEmpty()
     .withMessage("El Nombre del Proyecto es Obligatorio"),
