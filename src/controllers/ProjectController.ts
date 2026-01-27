@@ -13,6 +13,9 @@ export class ProjectController {
     //   return res.status(404).json({ error: error.message });
     // }
 
+    project.manager = req.user._id;
+    console.log(req.user);
+
     try {
       // Otra forma: await Project.create(req.body);
 
