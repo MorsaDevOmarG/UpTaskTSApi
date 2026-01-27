@@ -196,3 +196,21 @@
     - **Capacidad limitada**: Al igual que _LocalStorage_, las _Cookies_ también tienen un tamaño máximo de almacenamiento por dominio (generalmente 4KB por _Cookie_).
     - **Menos persistencia**: Las _Cookies_ pueden ser eliminadas por el usuario o expirar automáticamente después de un período de tiempo, lo que puede requerir una renovación periódica de los _tokens_.
 
+### AUTENTICACIÓN & AUTORIZACIÓN
+
+- Son 2 proceso fundamentales en la seguridad de sistemas y aplicaciones, que a menud se confunden, pero tienen propósitos distintos.
+
+  - ## AUTENTICACIÓN
+    - Es el proceso de verificar la identidad de un usuario o entidad.
+    - Se trata de asegurarse de que el usuario es realmente quien dice ser.
+    - Esto se hace típicamente a tráves de credenciales como nombres de usuario y contraseñas, _tokens_ de seguridad, reconocimiento biométrico (como huellas dactilares o reconocimiento facial), entre otros.
+    - La autenticación responde a la pregunta:
+      - ¿Eres realmente quien dices ser?
+  - ## AUTORIZACIÓN
+    - Una vez que la identidad del usuario ha sido verificada mediante la autenticación, la autorización es el proceso de determinar si se le debe permitir acceder a recursos o realizar ciertas acciones.
+    - Esto implica verificar sus permisos y roles en el sistema.
+    - Por ejemplo, en una empresa, un empleado puede estar autenticado (el sistema sabe quién es) pero puede o no estar autorizado para acceder a ciertos archivos o aplicaciones, dependendiendo de su rol o permisos asignados.
+    - La autorización responde a la pregunta:
+      - ¿ Tienes permiso para hacer esto?
+- En resúmen, la **autenticación** es sobre verificar quién eres, mientras la **autorización** es sobre qué se te permite hacer.
+
