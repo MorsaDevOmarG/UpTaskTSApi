@@ -124,12 +124,22 @@ router.post(
 
 // Routes For Teams
 router.post(
-  "/:projectId/teams",
+  "/:projectId/team/find",
   body("email")
     .isEmail()
+    .toLowerCase()
     .withMessage("E-mail no válido"),
   handleInputErrors,
   TeamMemberController.findMemberByEmail,
+);
+
+router.post(
+  "/:projectId/team",
+  body("id")
+    .isMongoId()
+    .withMessage("ID no válido"),
+  handleInputErrors,
+  TeamMemberController.addMemberById,
 );
 
 export default router;
