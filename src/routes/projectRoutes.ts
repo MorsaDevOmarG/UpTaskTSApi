@@ -27,10 +27,7 @@ router.post(
   ProjectController.createProject,
 );
 
-router.get(
-  "/",
-  ProjectController.getAllProjects
-);
+router.get("/", ProjectController.getAllProjects);
 
 router.get(
   "/:id",
@@ -125,21 +122,23 @@ router.post(
 // Routes For Teams
 router.post(
   "/:projectId/team/find",
-  body("email")
-    .isEmail()
-    .toLowerCase()
-    .withMessage("E-mail no válido"),
+  body("email").isEmail().toLowerCase().withMessage("E-mail no válido"),
   handleInputErrors,
   TeamMemberController.findMemberByEmail,
 );
 
 router.post(
   "/:projectId/team",
-  body("id")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  body("id").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
   TeamMemberController.addMemberById,
+);
+
+router.delete(
+  "/:projectId/team",
+  body("id").isMongoId().withMessage("ID no válido"),
+  handleInputErrors,
+  TeamMemberController.removeMemberById,
 );
 
 export default router;
