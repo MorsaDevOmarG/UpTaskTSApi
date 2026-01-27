@@ -41,10 +41,12 @@ export const authenticate = async (
 
       if (user) {
         req.user = user;
+
         next();
       } else {
         res.status(500).json({ error: "Token No Válido" });
       }
+      
     }
   } catch (error) {
     res.status(500).json({ error: "Token No Válido" });
