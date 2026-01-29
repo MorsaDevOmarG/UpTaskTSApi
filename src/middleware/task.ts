@@ -7,12 +7,12 @@ declare global {
       task: ITask;
     }
   }
-};
+}
 
 export async function taskExists(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   try {
     const { taskId } = req.params;
@@ -31,12 +31,12 @@ export async function taskExists(
   } catch (error) {
     res.status(500).json({ error: "Hubo un error" });
   }
-};
+}
 
 export async function taskBelongToProject(
   req: Request,
   res: Response,
-  next: NextFunction
+  next: NextFunction,
 ) {
   if (req.task.project.toString() !== req.project._id.toString()) {
     const error = new Error("Acción no válida");
@@ -45,4 +45,18 @@ export async function taskBelongToProject(
   }
 
   next();
-};
+}
+
+export async function hashAuthorization(
+  req: Request,
+  res: Response,
+  next: NextFunction,
+) {
+  if (req.user._id.toString() !== req.project.manager.toString()) {
+    const error = new Error("Acción no válida");
+
+    return res.status(400).json({ error: error.message });
+  }
+
+  next();
+}
