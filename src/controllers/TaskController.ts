@@ -65,7 +65,13 @@ export class TaskController {
       //   return res.status(400).json({ error: error.message });
       // }
 
-      res.json(req.task);
+      const task = await Task.findById(req.task._id).populate({
+        path: "completeBy",
+        select: "id name email"
+      });
+
+      // res.json(req.task);
+      res.json(task);
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
