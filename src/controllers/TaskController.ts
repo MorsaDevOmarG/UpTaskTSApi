@@ -151,6 +151,12 @@ export class TaskController {
       // task.status = status;
       req.task.status = status;
 
+      if (status === 'pending') {
+        req.task.completeBy = null;
+      } else {
+        req.task.completeBy = req.user._id;
+      }
+
       // await task.save();
       await req.task.save();
 
