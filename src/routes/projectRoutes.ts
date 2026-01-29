@@ -66,6 +66,7 @@ router.param("projectId", projectExists);
 router.post(
   "/:projectId/tasks",
   // projectExists,
+  hashAuthorization,
   body("name").notEmpty().withMessage("El Nombre de la Tarea es Obligatorio"),
   body("description")
     .notEmpty()
