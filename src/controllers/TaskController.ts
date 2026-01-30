@@ -66,7 +66,7 @@ export class TaskController {
       // }
 
       const task = await Task.findById(req.task._id).populate({
-        path: "completeBy",
+        path: "completedBy",
         select: "id name email"
       });
 
@@ -158,9 +158,9 @@ export class TaskController {
       req.task.status = status;
 
       if (status === 'pending') {
-        req.task.completeBy = null;
+        req.task.completedBy = null;
       } else {
-        req.task.completeBy = req.user._id;
+        req.task.completedBy = req.user._id;
       }
 
       // await task.save();
