@@ -157,11 +157,18 @@ export class TaskController {
       // task.status = status;
       req.task.status = status;
 
-      if (status === 'pending') {
-        req.task.completedBy = null;
-      } else {
-        req.task.completedBy = req.user._id;
-      }
+      const data = {
+        user: req.user._id,
+        status,
+      };
+
+      // if (status === 'pending') {
+      //   req.task.completedBy = null;
+      // } else {
+      //   req.task.completedBy = req.user._id;
+      // }
+
+      req.task.completedBy.push(data);
 
       // await task.save();
       await req.task.save();
