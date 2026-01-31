@@ -35,7 +35,7 @@ export class TaskController {
       // populate: es como un JOIN en una base de datos relacional, con ello tremos toda la info del PROYECTO
       // const tasks = await Task.find({ project: req.project._id });
       const tasks = await Task.find({ project: req.project._id }).populate(
-        "project"
+        "project",
       );
 
       res.json(tasks);
@@ -65,10 +65,18 @@ export class TaskController {
       //   return res.status(400).json({ error: error.message });
       // }
 
-      const task = await Task.findById(req.task._id).populate({
-        path: "completedBy.user",
-        select: "id name email"
-      });
+      const task = await Task.findById(req.task._id)
+        .populate({
+          path: "completedBy.user",
+          select: "id name email",
+        })
+        .populate({
+          path: "notes",
+          populate: {
+            path: "createdBy",
+            select: "id name email",
+          },
+        });
 
       // res.json(req.task);
       res.json(task);
@@ -99,12 +107,12 @@ export class TaskController {
 
       // task.name = req.body.name;
       // task.description = req.body.description;
-      
+
       // await task.save();
 
       req.task.name = req.body.name;
       req.task.description = req.body.description;
-      
+
       await req.task.save();
 
       res.send("Tarea actualizada correctamente");
@@ -128,7 +136,7 @@ export class TaskController {
       // req.project.tasks = req.project.tasks.filter(task => task !== taskId);
       req.project.tasks = req.project.tasks.filter(
         // (task) => task.toString() !== taskId
-        (task) => task.toString() !== req.task._id.toString()
+        (task) => task.toString() !== req.task._id.toString(),
       );
 
       // await task.deleteOne();
@@ -146,10 +154,10 @@ export class TaskController {
     try {
       // const { taskId } = req.params;
       // const task = await Task.findById(taskId);
-      
+
       // if (!task) {
       //   const error = new Error("Tarea no encontrada");
-        
+
       //   return res.status(404).json({ error: error.message });
       // }
 
@@ -173,8 +181,7 @@ export class TaskController {
       // await task.save();
       await req.task.save();
 
-      res.send('Estatus Actualizado');
-
+      res.send("Estatus Actualizado");
     } catch (error) {
       res.status(500).json({ error: "Hubo un error" });
     }
