@@ -66,7 +66,7 @@ export class TaskController {
       // }
 
       const task = await Task.findById(req.task._id).populate({
-        path: "completedBy",
+        path: "completedBy.user",
         select: "id name email"
       });
 
