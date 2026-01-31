@@ -1,11 +1,26 @@
 import { Request, Response } from 'express';
-import { INote } from '../models/Note';
+import Note, { INote } from '../models/Note';
 
 export class NoteController {
-  static createNote(req: Request<{}, {}, INote>, res: Response) {
+  static createNote = async (req: Request<{}, {}, INote>, res: Response) => {
     // console.log(req.body);
 
     const { content } = req.body;
+    const note = new Note();
+    // console.log(note);
+    note.content = content;
+    note.createdBy = req.user._id;
+    note.task = req.task._id;
+
+    req.task.notes.push(note._id);
+
+    try {
+      await Promise.all([req.task.save(), note.save()]);
+
+      res.send("Nota creada correctamente");
+    } catch (error) {
+      res.status(500).json({ msg: 'Error al crear la nota' });
+    }
   }
 
 }
