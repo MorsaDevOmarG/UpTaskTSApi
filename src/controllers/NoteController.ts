@@ -1,5 +1,10 @@
-import { Request, Response } from 'express';
-import Note, { INote } from '../models/Note';
+import { Request, Response } from "express";
+import Note, { INote } from "../models/Note";
+import { Types } from "mongoose";
+
+type NoteParams = {
+  noteId: Types.ObjectId;
+};
 
 export class NoteController {
   static createNote = async (req: Request<{}, {}, INote>, res: Response) => {
@@ -19,20 +24,50 @@ export class NoteController {
 
       res.send("Nota creada correctamente");
     } catch (error) {
-      res.status(500).json({ msg: 'Error al crear la nota' });
+      res.status(500).json({ msg: "Error al crear la nota" });
     }
-  }
+  };
 
   static getTaskNotes = async (req: Request, res: Response) => {
     // console.log("getTaskNotes");
 
     try {
       const notes = await Note.find({ task: req.task._id });
-      
+
       res.json(notes);
     } catch (error) {
-      res.status(500).json({ msg: 'Error al crear la nota' });
+      res.status(500).json({ msg: "Error al crear la nota" });
     }
-  }
+  };
 
+  static deleteNote = async (req: Request<NoteParams>, res: Response) => {
+    // console.log("deleteNote");
+
+    const { noteId } = req.params;
+    const note = await Note.findById(noteId);
+
+    if (!note) {
+      const error = new Error("Nota no encontrada");
+
+      return res.status(404).json({ error: error.message });
+    }
+
+    if (note.createdBy.toString() !== req.user._id.toString()) {
+      const error = new Error("Acción no válida");
+
+      return res.status(401).json({ error: error.message });
+    }
+
+    req.task.notes = req.task.notes.filter(note => note.toString() !== noteId.toString());
+
+    try {
+      // await note.deleteOne();
+
+      await Promise.allSettled([note.deleteOne(), req.task.save()]);
+
+      res.json({ msg: "Nota eliminada correctamente" });
+    } catch (error) {
+      res.status(500).json({ msg: "Error al crear la nota" });
+    }
+  };
 }
