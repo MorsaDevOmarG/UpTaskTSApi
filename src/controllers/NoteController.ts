@@ -63,11 +63,13 @@ export class NoteController {
     try {
       // await note.deleteOne();
 
-      await Promise.allSettled([note.deleteOne(), req.task.save()]);
+      await Promise.allSettled([req.task.save(), note.deleteOne()]);
 
-      res.json({ msg: "Nota eliminada correctamente" });
+      // res.json({ msg: "Nota eliminada correctamente" });
+      res.send("Nota eliminada correctamente");
     } catch (error) {
-      res.status(500).json({ msg: "Error al crear la nota" });
+      // res.status(500).json({ msg: "Error al crear la nota" });
+      res.status(500).json({ error: "Error al crear la nota" });
     }
   };
 }
