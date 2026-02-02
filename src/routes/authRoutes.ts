@@ -91,4 +91,14 @@ router.get(
   AuthController.user
 );
 
+// Profile
+router.put(
+  "/profile",
+  authenticate,
+  body("name").notEmpty().withMessage("El Nombre no puede ir vacío"),
+  body("email").isEmail().withMessage("El E-mail no es válido"),
+  handleInputErrors,
+  AuthController.updateProfile,
+);
+
 export default router;
