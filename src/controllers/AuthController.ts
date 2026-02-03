@@ -306,4 +306,29 @@ export class AuthController {
     }
   };
 
+  static checkPassword = async (req: Request, res: Response) => {
+    const { password } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    const isPasswordCorrect = await checkPassword(password, user.password);
+
+    if (!isPasswordCorrect) {
+      const error = new Error("El Password es incorrecto");
+
+      return res.status(401).json({ error: error.message });
+    }
+
+    res.send("Password Correcto");
+
+    // try {
+    //   user.password = await hashPassword(password);
+
+    //   await user.save();
+
+    //   res.send("El Password se modificó correctamente");
+    // } catch (error) {
+    //   res.status(500).send("Hubo un error");
+    // }
+  };
 }

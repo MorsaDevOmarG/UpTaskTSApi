@@ -85,11 +85,7 @@ router.post(
   AuthController.updatePasswordWithToken,
 );
 
-router.get(
-  '/user',
-  authenticate,
-  AuthController.user
-);
+router.get("/user", authenticate, AuthController.user);
 
 // Profile
 router.put(
@@ -104,7 +100,9 @@ router.put(
 router.post(
   "/update-password",
   authenticate,
-  body("current_password").notEmpty().withMessage("El Password actual no puede ir vacío"),
+  body("current_password")
+    .notEmpty()
+    .withMessage("El Password actual no puede ir vacío"),
   body("password")
     .isLength({
       min: 8,
@@ -118,7 +116,15 @@ router.post(
     return true;
   }),
   handleInputErrors,
-  AuthController.updateCurrentUserPassword
+  AuthController.updateCurrentUserPassword,
+);
+
+router.post(
+  "/check-password",
+  authenticate,
+  body("password").notEmpty().withMessage("El Password no puede ir vacío"),
+  handleInputErrors,
+  AuthController.checkPassword,
 );
 
 export default router;
