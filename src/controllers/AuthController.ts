@@ -130,7 +130,7 @@ export class AuthController {
         return res.status(404).json({ error: error.message });
       }
 
-      const token = generateJWT({id: user._id});
+      const token = generateJWT({ id: user._id });
 
       // res.send("Autenticado...");
       res.send(token);
@@ -262,20 +262,47 @@ export class AuthController {
     const userExists = await User.findOne({ email });
 
     if (userExists && userExists.id.toString() !== req.user._id.toString()) {
-      const error = new Error('ESe email ya esta registrado');
+      const error = new Error("ESe email ya esta registrado");
 
       return res.status(409).json({ error: error.message });
     }
-      
+
     req.user.name = name;
     req.user.email = email;
 
     try {
       await req.user.save();
 
-      res.send('Perfil actualizado correctamente');
+      res.send("Perfil actualizado correctamente");
     } catch (error) {
-      res.status(500).send('Hubo un error');
+      res.status(500).send("Hubo un error");
+    }
+  };
+
+  static updateCurrentUserPassword = async (req: Request, res: Response) => {
+    const { current_password, password } = req.body;
+
+    const user = await User.findById(req.user._id);
+
+    const isPasswordCorrect = await checkPassword(
+      current_password,
+      user.password,
+    );
+
+    if (!isPasswordCorrect) {
+      const error = new Error("El Password actual es incorrecto");
+
+      return res.status(401).json({ error: error.message });
+    }
+
+    try {
+      user.password = await hasPassword(password);
+
+      await user.save();
+
+      res.send("El Password se modificó correctamente");
+    } catch (error) {
+      res.status(500).send("Hubo un error");
     }
   };
 }
