@@ -1,7 +1,7 @@
 import { Response, Request } from "express";
 import User from "../models/User";
 // import bcrypt from 'bcrypt';
-import { checkPassword, hasPassword } from "../utils/auth";
+import { checkPassword, hashPassword } from "../utils/auth";
 import Token from "../models/Token";
 import { generateToken } from "../utils/token";
 import { AuthEmail } from "../emails/AuthEmail";
@@ -28,7 +28,7 @@ export class AuthController {
       // Hash Password
       // const salt = await bcrypt.genSalt(10);
       // user.password = await bcrypt.hash(password, salt);
-      user.password = await hasPassword(password);
+      user.password = await hashPassword(password);
 
       // Generar TOKEN
       const token = new Token();
@@ -240,7 +240,7 @@ export class AuthController {
       }
 
       const user = await User.findById(tokenExists.user);
-      user.password = await hasPassword(password);
+      user.password = await hashPassword(password);
 
       await Promise.allSettled([user.save(), tokenExists.deleteOne]);
 
@@ -296,7 +296,7 @@ export class AuthController {
     }
 
     try {
-      user.password = await hasPassword(password);
+      user.password = await hashPassword(password);
 
       await user.save();
 
@@ -305,4 +305,5 @@ export class AuthController {
       res.status(500).send("Hubo un error");
     }
   };
+
 }
