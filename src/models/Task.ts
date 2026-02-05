@@ -1,28 +1,29 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import Note from "./Note";
 
 // El ESTADO solo aceptará alguno de los valores que definimos
 const taskStatus = {
-  PENDING: 'pending',
-  ON_HOLD: 'onHold',
-  IN_PROGRESS: 'inProgress',
-  UNDER_REVIEW: 'underReview',
-  COMPLETED: 'completed'
+  PENDING: "pending",
+  ON_HOLD: "onHold",
+  IN_PROGRESS: "inProgress",
+  UNDER_REVIEW: "underReview",
+  COMPLETED: "completed",
 };
 
-export type TaskStatus = typeof taskStatus[keyof typeof taskStatus];
+export type TaskStatus = (typeof taskStatus)[keyof typeof taskStatus];
 
 export interface ITask extends Document {
-  name: string,
-  description: string,
-  project: Types.ObjectId,
-  status: TaskStatus,
+  name: string;
+  description: string;
+  project: Types.ObjectId;
+  status: TaskStatus;
   // completedBy: Types.ObjectId,
   completedBy: {
-    user: Types.ObjectId,
-    status: TaskStatus,
-  }[],
-  notes: Types.ObjectId[],
-};
+    user: Types.ObjectId;
+    status: TaskStatus;
+  }[];
+  notes: Types.ObjectId[];
+}
 
 export const TaskSchema: Schema = new Schema(
   {
@@ -56,7 +57,7 @@ export const TaskSchema: Schema = new Schema(
           type: String,
           enum: Object.values(taskStatus),
           default: taskStatus.PENDING,
-        }
+        },
       },
     ],
     notes: [
@@ -71,6 +72,23 @@ export const TaskSchema: Schema = new Schema(
   },
 );
 
-const Task = mongoose.model<ITask>('Task', TaskSchema);
+// Middleware
+TaskSchema.pre(
+  "deleteOne",
+  {
+    document: true,
+  },
+  async function () {
+    const taskId = this._id;
+
+    if (!taskId) return;
+
+    await Note.deleteMany({
+      task: taskId,
+    });
+  },
+);
+
+const Task = mongoose.model<ITask>("Task", TaskSchema);
 
 export default Task;
