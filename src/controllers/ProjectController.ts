@@ -32,10 +32,10 @@ export class ProjectController {
       const projects = await Project.find({
         $or: [
           {
-            manager: req.user._id ,
+            manager: req.user._id,
           },
           {
-            team:  req.user._id ,
+            team: req.user._id,
           },
         ],
       });
@@ -63,7 +63,10 @@ export class ProjectController {
         return res.status(404).json({ error: error.message });
       }
 
-      if (project.manager.toString() !== req.user._id.toString() && !project.team.includes(req.user._id)) {
+      if (
+        project.manager.toString() !== req.user._id.toString() &&
+        !project.team.includes(req.user._id)
+      ) {
         const error = new Error("Acción no válida...");
 
         return res.status(404).json({ error: error.message });
@@ -78,29 +81,34 @@ export class ProjectController {
   };
 
   static updateProject = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    // const { id } = req.params;
 
     try {
       // const project = await Project.findByIdAndUpdate(id, req.body);
-      const project = await Project.findById(id);
+      // const project = await Project.findById(id);
 
-      if (!project) {
-        const error = new Error("Proyecto NO encontrado...");
+      // if (!project) {
+      //   const error = new Error("Proyecto NO encontrado...");
 
-        return res.status(404).json({ error: error.message });
-      }
+      //   return res.status(404).json({ error: error.message });
+      // }
 
-      if (project.manager.toString() !== req.user._id.toString()) {
-        const error = new Error("Solo el Manager puede actualizar el proyecto");
+      // if (project.manager.toString() !== req.user._id.toString()) {
+      //   const error = new Error("Solo el Manager puede actualizar el proyecto");
 
-        return res.status(404).json({ error: error.message });
-      }
+      //   return res.status(404).json({ error: error.message });
+      // }
 
-      project.projectName = req.body.projectName;
-      project.clientName = req.body.clientName;
-      project.description = req.body.description;
+      // project.projectName = req.body.projectName;
+      // project.clientName = req.body.clientName;
+      // project.description = req.body.description;
 
-      await project.save();
+      req.project.projectName = req.body.projectName;
+      req.project.clientName = req.body.clientName;
+      req.project.description = req.body.description;
+
+      // await project.save();
+      await req.project.save();
 
       res.send("Proyecto Actualizado");
     } catch (error) {
@@ -109,26 +117,27 @@ export class ProjectController {
   };
 
   static deleteProject = async (req: Request, res: Response) => {
-    const { id } = req.params;
+    // const { id } = req.params;
 
     try {
       // const project = await Project.findByIdAndDelete(id);
-      const project = await Project.findById(id);
+      // const project = await Project.findById(id);
       // console.log(project);
 
-      if (!project) {
-        const error = new Error("Proyecto NO encontrado...");
+      // if (!project) {
+      //   const error = new Error("Proyecto NO encontrado...");
 
-        return res.status(404).json({ error: error.message });
-      }
+      //   return res.status(404).json({ error: error.message });
+      // }
 
-      if (project.manager.toString() !== req.user._id.toString()) {
-        const error = new Error("Solo el Manager puede eliminar un proyecto");
+      // if (project.manager.toString() !== req.user._id.toString()) {
+      //   const error = new Error("Solo el Manager puede eliminar un proyecto");
 
-        return res.status(404).json({ error: error.message });
-      }
+      //   return res.status(404).json({ error: error.message });
+      // }
 
-      await project.deleteOne();
+      // await project.deleteOne();
+      await req.project.deleteOne();
 
       res.send("Proyecto eliminado");
     } catch (error) {

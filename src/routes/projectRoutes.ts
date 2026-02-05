@@ -4,7 +4,11 @@ import { body, param } from "express-validator";
 import { handleInputErrors } from "../middleware/validation";
 import { TaskController } from "../controllers/TaskController";
 import { projectExists } from "../middleware/project";
-import { hashAuthorization, taskBelongToProject, taskExists } from "../middleware/task";
+import {
+  hashAuthorization,
+  taskBelongToProject,
+  taskExists,
+} from "../middleware/task";
 import { authenticate } from "../middleware/auth";
 import { TeamMemberController } from "../controllers/TeamController";
 import { NoteController } from "../controllers/NoteController";
@@ -37,9 +41,14 @@ router.get(
   ProjectController.getProjectById,
 );
 
+// Routes FOR TASKS
+router.param("projectId", projectExists);
+
 router.put(
-  "/:id",
-  param("id").isMongoId().withMessage("ID no válido"),
+  // "/:id",
+  "/:projectId",
+  // param("id")
+  param("projectId").isMongoId().withMessage("ID no válido"),
   body("projectName")
     .notEmpty()
     .withMessage("El Nombre del Proyecto es Obligatorio"),
@@ -48,13 +57,17 @@ router.put(
     .withMessage("El Nombre del Cliente es Obligatorio"),
   body("description").notEmpty().withMessage("La Descripción es Obligatoria"),
   handleInputErrors,
+  hashAuthorization,
   ProjectController.updateProject,
 );
 
 router.delete(
-  "/:id",
-  param("id").isMongoId().withMessage("ID no válido"),
+  // "/:id",
+  "projectId",
+  // param("id")
+  param("projectId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
+  hashAuthorization,
   ProjectController.deleteProject,
 );
 
@@ -62,7 +75,7 @@ router.delete(
 // http://localhost:4000/api/projects/696539e3ff2dfc8e6fb6dcfd/tasks
 
 // Con router param, las rutas que contengan: projectId, tomarán lo que pongamos, en este caso esa validación:  projectExists
-router.param("projectId", projectExists);
+// router.param("projectId", projectExists);
 
 router.post(
   "/:projectId/tasks",
@@ -131,10 +144,7 @@ router.post(
   TeamMemberController.findMemberByEmail,
 );
 
-router.get(
-  "/:projectId/team",
-  TeamMemberController.getProjectTeam,
-);
+router.get("/:projectId/team", TeamMemberController.getProjectTeam);
 
 router.post(
   "/:projectId/team",
@@ -145,9 +155,7 @@ router.post(
 
 router.delete(
   "/:projectId/team/:userId",
-  param("userId")
-    .isMongoId()
-    .withMessage("ID no válido"),
+  param("userId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
   TeamMemberController.removeMemberById,
 );
@@ -155,21 +163,20 @@ router.delete(
 // Routes for Notes
 router.post(
   "/:projectId/tasks/:taskId/notes",
-  body("content").notEmpty().withMessage("El contenido de la nota es obligatorio"),
+  body("content")
+    .notEmpty()
+    .withMessage("El contenido de la nota es obligatorio"),
   handleInputErrors,
-  NoteController.createNote
+  NoteController.createNote,
 );
 
-router.get(
-  "/:projectId/tasks/:taskId/notes",
-  NoteController.getTaskNotes
-);
+router.get("/:projectId/tasks/:taskId/notes", NoteController.getTaskNotes);
 
 router.delete(
   "/:projectId/tasks/:taskId/notes/:noteId",
   param("noteId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
-  NoteController.deleteNote
+  NoteController.deleteNote,
 );
 
 export default router;
