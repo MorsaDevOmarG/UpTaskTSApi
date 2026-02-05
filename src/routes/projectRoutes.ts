@@ -63,7 +63,7 @@ router.put(
 
 router.delete(
   // "/:id",
-  "projectId",
+  "/:projectId",
   // param("id")
   param("projectId").isMongoId().withMessage("ID no válido"),
   handleInputErrors,
